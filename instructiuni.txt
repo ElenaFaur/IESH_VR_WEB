@@ -1,0 +1,5 @@
+in cazul in care nu se afiseaza cifrele la inputul de la parola:
+- make sure caci cursorul e pe mijlocul cifrei
+- asteapta 1-2 sec intre tastarea unor cifre
+- aproprie/departeaza camera (cu w,a,s,d)
+- e posibil sa nu mearga din prima, dar se poate insista

@@ -1,0 +1,185 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+
+  </head>
+  <body>
+    <a-scene>
+      <!-- 360 Panorama -->
+      <a-sky src="401.jpg"></a-sky>
+
+      <!-- Camera Rig -->
+      <a-entity movement-controls="speed: 0.15" position="0 0 3">
+        <a-entity camera position="0 1.6 0" look-controls wasd-controls="acceleration: 50; easing: 4 0">
+            <a-cursor fuse="false" raycaster="interval: 50"></a-cursor>
+        </a-entity>
+      </a-entity>
+
+      <a-assets>
+        <img id="sphereTexture" src="lock.png" position="0 0 0">
+      </a-assets>
+
+      <!-- Text Displayed Over Specific Part of Panorama -->
+      <a-text 
+        value="Welcome to the Classroom" 
+        position="0 3.5 -4" 
+        color="#FFFFFF"
+        align="center"
+        scale="4 4 4">
+      </a-text>
+
+      <!-- Transparent PNG Image -->
+      <a-image 
+        src="twitch_folder.png" 
+        position="20 -1.5 -3" 
+        scale="2 2 3" 
+        opacity="0.8"
+        event-set__mouseenter="src: twitch_folder_open.png; scale: 2.5 2.5 3.5"
+        event-set__mouseleave="src: twitch_folder.png; scale: 2 2 3"
+        rotation="0 -45 0">
+      </a-image>
+
+      <a-entity  position="-7 -0.5 -3" animation="property: rotation; to: 0 360 0; loop: true; dur: 5000" event-set__enter="_event: mouseenter; scale: 1.5 1.5 1.5" event-set__leave="_event: mouseleave; scale: 1 1 1">
+        <!-- Front Face -->
+        <a-plane height="1" width="1" position="0 0 0.5" material="color: #4CC3D9; side: double"></a-plane>
+        <a-plane class="lateral-face" src="expression_face.png" height="1" width="1" position="0 0 0.5" material="side: double; transparent: true"></a-plane>
+        
+        <!-- Back Face -->
+        <a-plane height="1" width="1" position="0 0 -0.5" rotation="0 180 0" material="color: #4CC3D9; side: double"></a-plane>
+        <a-plane class="lateral-face" src="expression_face.png" height="1" width="1" position="0 0 -0.5" rotation="0 180 0" material="side: double; transparent: true"></a-plane>
+        
+        <!-- Left Face -->
+        <a-plane height="1" width="1" position="-0.5 0 0" rotation="0 90 0" material="color: #4CC3D9; side: double"></a-plane>
+        <a-plane class="lateral-face" src="expression_face.png" height="1" width="1" position="-0.5 0 0" rotation="0 90 0" material="side: double; transparent: true"></a-plane>
+        
+        <!-- Right Face -->
+        <a-plane height="1" width="1" position="0.5 0 0" rotation="0 -90 0" material="color: #4CC3D9; side: double"></a-plane>
+        <a-plane class="lateral-face" src="expression_face.png" height="1" width="1" position="0.5 0 0" rotation="0 -90 0" material="side: double; transparent: true"></a-plane>
+        
+        <!-- Top Face (No Texture) -->
+        <a-plane color="#4CC3D9" height="1" width="1" position="0 0.5 0" rotation="-90 0 0" material="side: double"></a-plane>
+        
+        <!-- Bottom Face (No Texture) -->
+        <a-plane color="#4CC3D9" height="1" width="1" position="0 -0.5 0" rotation="90 0 0" material="side: double"></a-plane>
+
+      </a-entity>
+      
+      <!-- Dialogue Image (Separate from Cube) -->
+        <a-image
+            id="dialogue" 
+            src="dialogue1.png" 
+            position="-5 1.5 -3" 
+            scale="2.5 2.5 2.5" 
+            rotation="0 0 0" 
+            material="transparent: true">
+        </a-image>
+      
+
+      <!-- Clickable Point to Reveal Numeric Keypad -->
+      <a-sphere 
+        position="-3 1.5 -5" 
+        radius="0.5" 
+        color="#FF0000"
+        event-set__click="_event: click; visible: false"
+        id="trigger"
+        src="#sphereTexture"
+        rotation =" 0 -90 0">
+      </a-sphere>
+
+      <!-- Numeric Keypad -->
+      <a-entity id="keypad" visible="false" position="0 1.5 -5">
+        <!-- Keypad Background -->
+        <a-plane color="#000000" height="3" width="2"></a-plane>
+
+        <!-- Password Input Field -->
+        <a-text id="password-input" value="" position="0 1 0.1" color="#FFFFFF" align="center"></a-text>
+        
+        <!-- Keypad Buttons -->
+        <a-entity class="keypad-button" value="1" position="-0.5 0.5 0">
+            <a-plane color="#444" height="0.4" width="0.4"></a-plane>
+            <a-text value="1" position="0 0 0.1" color="#FFFFFF" align="center"></a-text>
+        </a-entity>
+
+        <a-entity class="keypad-button" value="2" position="0 0.5 0">
+            <a-plane color="#444" height="0.4" width="0.4"></a-plane>
+            <a-text value="2" position="0 0 0.1" color="#FFFFFF"  align="center"></a-text>
+        </a-entity>
+
+        <a-entity class="keypad-button" value="3" position="0.5 0.5 0">
+            <a-plane color="#444" height="0.4" width="0.4"></a-plane>
+            <a-text value="3" position="0 0 0.1" color="#FFFFFF"  align="center"></a-text>
+        </a-entity>
+
+        <a-entity class="keypad-button" value="4" position="-0.5 0 0.1">
+            <a-plane color="#444" height="0.4" width="0.4"></a-plane>
+            <a-text value="4" position="0 0 0.1" color="#FFFFFF"  align="center"></a-text>
+        </a-entity>
+        
+        <a-entity class="keypad-button" value="5" position="0 0 0.1">
+            <a-plane color="#444" height="0.4" width="0.4"></a-plane>
+            <a-text value="5" position="0 0 0.1" color="#FFFFFF"  align="center"></a-text>
+        </a-entity>
+        
+        <a-entity class="keypad-button" value="6" position="0.5 0 0.1">
+            <a-plane color="#444" height="0.4" width="0.4"></a-plane>
+            <a-text value="6" position="0 0 0.1" color="#FFFFFF"  align="center"></a-text>
+        </a-entity>
+        
+        <a-entity class="keypad-button" value="7" position="-0.5 -0.5 0.1">
+            <a-plane color="#444" height="0.4" width="0.4"></a-plane>
+            <a-text value="7" position="0 0 0.1" color="#FFFFFF"  align="center"></a-text>
+        </a-entity>
+        
+        <a-entity class="keypad-button" value="8" position="0 -0.5 0.1">
+            <a-plane color="#444" height="0.4" width="0.4"></a-plane>
+            <a-text value="8" position="0 0 0.1" color="#FFFFFF"  align="center"></a-text>
+        </a-entity>
+        
+        <a-entity class="keypad-button" value="9" position="0.5 -0.5 0.1">
+            <a-plane color="#444" height="0.4" width="0.4"></a-plane>
+            <a-text value="9" position="0 0 0.1" color="#FFFFFF"  align="center"></a-text>
+        </a-entity>
+        
+        <a-entity value="del" position="-0.5 -1 0.1" id="delete-button">
+            <a-plane color="#444" height="0.4" width="0.4"></a-plane>
+            <a-text value="del" position="0 0 0.1" color="#FFFFFF"  align="center"></a-text>
+        </a-entity>
+
+        <a-entity class="keypad-button" value="0" position="0 -1 0.1">
+            <a-plane color="#444" height="0.4" width="0.4"></a-plane>
+            <a-text value="0" position="0 0 0.1" color="#FFFFFF"  align="center"></a-text>
+        </a-entity>
+        
+        <a-entity value="ok" position="0.5 -1 0.1" id="ok-button">
+            <a-plane color="#444" height="0.4" width="0.4"></a-plane>
+            <a-text value="ok" position="0 0 0.1" color="#FFFFFF"  align="center"></a-text>
+        </a-entity>
+
+        <!-- Return Arrow -->
+        <a-image 
+            id="return-arrow" 
+            src="back-arrow-icon.png" 
+            position="0 -2 0.1" 
+            scale="0.5 0.5 0.5" 
+            class="clickable"
+            event-set__mouseenter="scale: 0.6 0.6 0.6"
+            event-set__mouseleave="scale: 0.5 0.5 0.5">
+        </a-image>
+     </a-entity>
+
+     <!-- Central Sphere -->
+     <a-sphere src="capybara.png" width="1" height="1" id="central-sphere" visible="false" src="" color="yellow" position="5 2 -5" radius="1" rotation="0 45 45"></a-sphere>
+
+     <!-- Orbiting Spheres -->
+     <a-entity id="orbiting-spheres" visible="false" position="5 2 -5" animation="property: rotation; to: 0 360 0; loop: true; dur: 5000; easing: linear">
+       <!-- Orbiting Sphere 1 -->
+       <a-sphere color="#CC6600" radius="0.1" position="2 0 0"></a-sphere>
+       <!-- Orbiting Sphere 2 -->
+       <a-sphere color="#FF3300" radius="0.1" position="-2 0 0"></a-sphere>
+     </a-entity>
+    </a-scene>
+
+    <script src="script.js"></script>
+  </body>
+</html>
