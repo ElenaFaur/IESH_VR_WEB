@@ -19,6 +19,7 @@ document.querySelector('a-scene').addEventListener('loaded', function () {
     const updateFacesTexture = (newTexture) => {
         document.querySelectorAll('.lateral-face').forEach((face) => {
             // Reset the material to remove any old textures
+            face.setAttribute('material', 'src: #');
             face.setAttribute('material', {
                 src: newTexture,
                 side: 'double',
